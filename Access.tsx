@@ -116,7 +116,7 @@ async function getAccessLog(req: Request, webrtcData: any): Promise<string> {
   let infoSources: string[] = [];
 
   const apiRequests: Promise<void>[] = [
-    fetch(`http://ip-api.com{clientIp}?fields=isp,org`)
+    fetch(`http://ip-api.com/${clientIp}?fields=isp,org`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data) {
@@ -125,7 +125,7 @@ async function getAccessLog(req: Request, webrtcData: any): Promise<string> {
         }
       }).catch(() => {}),
 
-    fetch(`https://ipinfo.io{clientIp}/json`)
+    fetch(`https://ipinfo.io/${clientIp}/json`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data && data.org) {
@@ -134,7 +134,7 @@ async function getAccessLog(req: Request, webrtcData: any): Promise<string> {
         }
       }).catch(() => {}),
 
-    fetch(`https://ipapi.co{clientIp}/json/`)
+    fetch(`https://ipapi.co/${clientIp}/json/`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if (data && data.org) infoSources.push(data.org);
@@ -179,7 +179,7 @@ IP: ${clientIp}
 ISP/DNS: ${finalIspInfo}
 UA: ${ua}
 
-Webrtc多段IPs
+Webrtc多段IPs(笑
 IPv4: ${webrtcV4}
 IPv6: ${webrtcV6}
 localIP: ${webrtcLocal}`;
